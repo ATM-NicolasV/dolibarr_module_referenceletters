@@ -699,6 +699,8 @@ abstract class ModelePDFReferenceLetters extends CommonDocGeneratorReferenceLett
 		if (is_array($tmparray) && count($tmparray) > 0) {
 			foreach ( $tmparray as $key => $value ) {
 			    if ($key == 'company_address') $value = nl2br($value);
+				// affichage propre du capital, on passe de 200000.00000 à 200 000.00 :
+				if ($key == 'company_capital' && !empty($value)) $value = price($value, 0, "",1, 0, "MT", '');
 				$substitution_array['{cust_' . $key . '}'] = $value;
 			}
 			$txt = str_replace(array_keys($substitution_array), array_values($substitution_array), $txt);
